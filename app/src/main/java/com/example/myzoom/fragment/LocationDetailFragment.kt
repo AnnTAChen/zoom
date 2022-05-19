@@ -1,6 +1,9 @@
 package com.example.myzoom.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +21,7 @@ import com.example.myzoom.service.ZoomDataSource
 import com.example.myzoom.service.ZoomLocationItem
 import com.example.myzoom.vm.ZoomRepository
 import com.example.myzoom.vm.ZoomViewModal
+
 
 class LocationDetailFragment(val focusLocation:Int) :Fragment(){
     private lateinit var layourtBinding:LocationDetailFragmentBinding
@@ -45,19 +49,29 @@ class LocationDetailFragment(val focusLocation:Int) :Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         currentLocation = zoomViewModal.zoomLocationList.value?.find { it.id == focusLocation }!!
-        (activity as MainActivity).setActionBar(currentLocation.name,true){
-        }
+        (activity as MainActivity).setActionBar(currentLocation.name,true)
         layourtBinding.imgLocation.load(currentLocation.pic_url)
         layourtBinding.tvLocationInfo.text = currentLocation.info
         layourtBinding.tvLocationMemo.text = currentLocation.memo
         layourtBinding.tvLocationCategory.text  = currentLocation.category
-        val manager: FragmentManager = requireActivity().supportFragmentManager
-        val transaction: FragmentTransaction = manager.beginTransaction()
-        transaction.add(R.id.plan_list_container, PlantListFragment(currentLocation.name),"PlantListFragment")
-        transaction.addToBackStack(null)
-        transaction.commitAllowingStateLoss()
+        layourtBinding.tvLocationMore.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentLocation.url))
+            startActivity(browserIntent)
+        }
+
     }
     override fun onResume() {
         super.onResume()
+        Log.d("ann","onResume")
+        val manager: FragmentManager = requireActivity().supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.add(R.id.plan_list_container, PlantListFragment(currentLocation.name),"PlantListFragment")
+        //transaction.addToBackStack(null)
+        transaction.commitAllowingStateLoss()
+    }
+
+    fun onBackPress(){
+        Log.d("ann", "onBackPressed:" +requireActivity().supportFragmentManager.backStackEntryCount)
+
     }
 }

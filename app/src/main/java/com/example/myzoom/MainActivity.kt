@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.myzoom.databinding.ActivityMainBinding
+import com.example.myzoom.fragment.LocationDetailFragment
 import com.example.myzoom.fragment.LocationListFragment
 
 
@@ -34,23 +35,26 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun setActionBar( title:String,showBack:Boolean,itemClickListener: (Boolean) -> Unit){
+    fun setActionBar( title:String,showBack:Boolean){
         binding.tvToolbarCustom.text =title
         supportActionBar!!.setDisplayHomeAsUpEnabled(showBack);
         supportActionBar!!.setDisplayShowHomeEnabled(showBack);
         if( showBack) {
             binding.toolbar.setNavigationOnClickListener {
-                itemClickListener(true)
+                onBackPressed()
             }
         }
     }
 
-    private fun getCurrentFragment(): Fragment? {
-        return supportFragmentManager.findFragmentById(R.id.main_content)
-    }
     override fun onBackPressed() {
-        super.onBackPressed()
-        val fragment: Fragment = getCurrentFragment()
-        Log.d("ann", "onBackPressed")
+        //super.onBackPressed()
+
+        if (supportFragmentManager.backStackEntryCount == 1) { // 已經在MainActivity
+            finish()
+        } else {
+            supportFragmentManager.popBackStack()
+
+        }
+
     }
 }

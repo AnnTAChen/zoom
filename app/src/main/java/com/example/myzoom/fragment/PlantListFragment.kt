@@ -24,7 +24,6 @@ import com.example.myzoom.vm.ZoomViewModal
 
 class PlantListFragment(val currentLocation:String) :Fragment() {
     private lateinit var layoutBinding :PlantListFragmentBinding
-    private lateinit var currentLocationPlant : List<ZoomPlantItem>
     private lateinit var zoomPlantAdapter: ZoomAdapter
     private val zoomViewModal: ZoomViewModal by lazy {
         ViewModelProvider(
@@ -50,7 +49,12 @@ class PlantListFragment(val currentLocation:String) :Fragment() {
         zoomPlantAdapter = context?.let {
             ZoomAdapter(it,ZoomAdapter.PLANT) {
                 Log.d("ann","click:" + it.toString())
-
+                val manager: FragmentManager = parentFragmentManager
+                val transaction: FragmentTransaction = manager.beginTransaction()
+                transaction.replace(R.id.main_content, PlantDetailFragment(it as ZoomPlantItem),"PlantDetailFragment")
+                    .addToBackStack(null)
+                    .setReorderingAllowed(true)
+                    .commitAllowingStateLoss()
             }
         }!!
         layoutBinding.rcPlantList.layoutManager = LinearLayoutManager(requireContext())
@@ -68,7 +72,6 @@ class PlantListFragment(val currentLocation:String) :Fragment() {
     fun observe(){
         zoomViewModal.zoomPlanList.observe(viewLifecycleOwner){
             val result = it.filter { it.F_Location.split("；").contains(currentLocation) }.toList()
-            Log.d("ann","result:" +result.size)
             zoomPlantAdapter.setPlantData(result)
         }
     }

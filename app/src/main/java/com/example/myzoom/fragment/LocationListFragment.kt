@@ -48,9 +48,7 @@ class LocationListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).setActionBar("臺北市立動物園",false){
-
-        }
+        (activity as MainActivity).setActionBar("臺北市立動物園",false)
         zoomLocationAdapter = context?.let {
             ZoomAdapter(it,ZoomAdapter.LOCATION) {
                 Log.d("ann","click:" + it.toString())
