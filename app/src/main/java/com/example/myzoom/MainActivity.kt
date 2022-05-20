@@ -28,6 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         val manager: FragmentManager = supportFragmentManager
         val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.setCustomAnimations(
+                R.anim.right_in,
+                R.anim.right_out,
+                R.anim.right_in,
+                R.anim.right_out)
         transaction.add(R.id.main_content, LocationListFragment(),"LocationListFragment")
         transaction.addToBackStack(null)
         transaction.commitAllowingStateLoss()

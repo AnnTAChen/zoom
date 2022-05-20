@@ -51,7 +51,11 @@ class PlantListFragment(val currentLocation:String) :Fragment() {
                 Log.d("ann","click:" + it.toString())
                 val manager: FragmentManager = parentFragmentManager
                 val transaction: FragmentTransaction = manager.beginTransaction()
-                transaction.replace(R.id.main_content, PlantDetailFragment(it as ZoomPlantItem),"PlantDetailFragment")
+                transaction.setCustomAnimations(
+                    R.anim.right_in,
+                    R.anim.right_out,
+                    R.anim.right_in,
+                    R.anim.right_out).replace(R.id.main_content, PlantDetailFragment(it as ZoomPlantItem),"PlantDetailFragment")
                     .addToBackStack(null)
                     .setReorderingAllowed(true)
                     .commitAllowingStateLoss()

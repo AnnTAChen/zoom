@@ -65,7 +65,11 @@ class LocationDetailFragment(val focusLocation:Int) :Fragment(){
         Log.d("ann","onResume")
         val manager: FragmentManager = requireActivity().supportFragmentManager
         val transaction: FragmentTransaction = manager.beginTransaction()
-        transaction.add(R.id.plan_list_container, PlantListFragment(currentLocation.name),"PlantListFragment")
+        transaction.setCustomAnimations(
+            R.anim.right_in,
+            R.anim.right_out,
+            R.anim.right_in,
+            R.anim.right_out).add(R.id.plan_list_container, PlantListFragment(currentLocation.name),"PlantListFragment")
         //transaction.addToBackStack(null)
         transaction.commitAllowingStateLoss()
     }
