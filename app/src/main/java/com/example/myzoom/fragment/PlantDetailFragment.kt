@@ -10,7 +10,6 @@ import coil.load
 import com.example.myzoom.MainActivity
 import com.example.myzoom.R
 import com.example.myzoom.databinding.PlantDetailFragmentBinding
-import com.example.myzoom.databinding.PlantListFragmentBindingImpl
 import com.example.myzoom.service.ZoomPlantItem
 
 class PlantDetailFragment(val currentPlant: ZoomPlantItem): Fragment() {

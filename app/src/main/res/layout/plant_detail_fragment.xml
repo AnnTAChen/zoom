@@ -23,13 +23,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp">
-                <ImageView
-                    android:id="@+id/img_location"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeWidth="1dp"
+                    android:layout_marginTop="6dp"
+                    app:strokeColor="#737070"
+                    app:cardElevation="2dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true">
+                    <ImageView
+                        android:id="@+id/img_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:id="@+id/tv_plant_chname"
                     android:layout_width="match_parent"
@@ -37,7 +52,7 @@
                     android:textSize="18dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_location"/>
+                    app:layout_constraintTop_toBottomOf="@+id/card_view"/>
                 <TextView
                     android:id="@+id/tv_plant_enname"
                     android:layout_width="match_parent"
